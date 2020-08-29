@@ -1,4 +1,7 @@
 <?php
+
+  session_start();
+
   $servername = 'localhost';
   $username = 'root';
   $password = '';
@@ -27,6 +30,7 @@
     $city = test_input($_POST['city']);
 
     entertext($firstname, $lastname, $email, $city);
+    $_SESSION['msg'] = "Info Saved!";
     header('location: activity.php');
   }
 

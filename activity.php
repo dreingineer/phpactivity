@@ -8,6 +8,18 @@
 </head>
 <body>
   <h1>CRUP PHP AND MySQL</h1><br>
+  
+  <div>
+    <h2>
+      <?php if(isset($_SESSION['msg'])):
+          echo $_SESSION['msg'];
+          unset($_SESSION['msg']);
+      ?>
+      <?php endif ?>
+    </h2>
+  </div>
+  
+  
   <form method="POST" action="dbcontrol.php">
     <label for="">First Name:</label>
     <input type="text" name="firstname" id=""><br>
