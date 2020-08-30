@@ -1,13 +1,36 @@
-<?php include('dbcontrol.php'); ?>
+<?php include('dbcontrol.php'); 
+  // fetch the record to be updated from id of the record selected
+  if(isset($_GET['update'])) {
+    $id = $_GET['update'];
+    $update_status = true;
+
+    $sqlupdate = "select * from account where id=$id";
+
+    $updateQuery = $connect->query($sqlupdate);
+    $record = mysqli_fetch_array($updateQuery);
+    
+    $firstname = $record['firstname'];
+    $lastname = $record['lastname'];
+    $email = $record['email'];
+    $city = $record['city'];
+    $id = $record['id'];
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Activity PHP CRUD</title>
+  <style>
+    h2 {
+      color: red;
+    }
+  </style>
 </head>
 <body>
-  <h1>CRUP PHP AND MySQL</h1><br>
+  <h1>CRUD PHP AND MySQL</h1><br>
   
   <div>
     <h2>
@@ -21,27 +44,33 @@
   
   
   <form method="POST" action="dbcontrol.php">
+    <input type="hidden" name="id" value="<?php echo $id; ?>">
     <label for="">First Name:</label>
-    <input type="text" name="firstname" id=""><br>
+    <input type="text" name="firstname" id="" value="<?php echo $firstname; ?>"><br>
     <label for="">Last Name:</label>
-    <input type="text" name="lastname" id=""><br>
+    <input type="text" name="lastname" id="" value="<?php echo $lastname; ?>"><br>
     <label for="">Email:</label>
-    <input type="email" name="email" id=""><br>
+    <input type="email" name="email" id="" value="<?php echo $email; ?>"><br>
     <label for="">City:</label>
-    <input type="text" name="city" id=""><br><br>
-    <input type="submit" name="save">
+    <input type="text" name="city" id="" value="<?php echo $city; ?>"><br><br>
+    <?php if($update_status == false): ?>
+      <input type="submit" name="save">
+    <?php else: ?>
+      <button type="submit" name="update">Update</button>
+      <!-- <input type="submit" name="update" id=""> -->
+    <?php endif ?>
   </form>
 
   <br>
   <div>
-    <?php
-      if($result->num_rows > 0) {
-        while($row = mysqli_fetch_array($result)) {
-          echo $row["id"] . " " . $row["firstname"] . " " . $row["lastname"] . " " . $row["email"] . " " . $row["city"] ."<br>";
-        }
-      } else {
-        echo "0 results";
-      }
+     <?php
+    //   if($result->num_rows > 0) {
+    //     while($row = mysqli_fetch_array($result)) {
+    //       echo $row["id"] . " " . $row["firstname"] . " " . $row["lastname"] . " " . $row["email"] . " " . $row["city"] ."<br>";
+    //     }
+    //   } else {
+    //     echo "0 results";
+    //   }
     ?>
   </div>
   
@@ -65,10 +94,10 @@
         <td><?php echo $row['email'] ?></td>
         <td><?php echo $row['city'] ?></td>
         <td>
-          <a href="#">Update</a>
+          <a href="activity.php?update=<?php echo $row['id']; ?>">Update</a>
         </td>
         <td>
-          <a href="#">Delete</a>
+          <a href="dbcontrol.php?delete=<?php echo $row['id']; ?>">Delete</a>
         </td>
       </tr>
       <?php } ?>
