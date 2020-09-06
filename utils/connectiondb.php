@@ -1,9 +1,10 @@
 <?php
 
 class Connection {
+
   protected $mysqli;
 
-  function __contstruct() {
+  function __construct() {
     $this->connect();
   }
 
@@ -13,10 +14,11 @@ class Connection {
     try {
       $servername = "localhost";
       $username = "root";
+      $password = "";
       $dbname = "aquino_db";
 
       $this->mysqli = new mysqli($servername, $username, "", $dbname);
-      $this->set_charset("utf8mb4");
+      $this->mysqli->set_charset("utf8mb4");
     } catch (Exception $e) {
       error_log($e->getMessage());
       exit("Something went wrong!");
@@ -37,6 +39,6 @@ class read extends Connection {
 }
 
 $read = new read();
-$read->expore();
+$read->expose();
 
 ?>

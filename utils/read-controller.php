@@ -1,11 +1,12 @@
 <?php
 
-include_once("connectiodb.php");
+include_once("connectiondb.php");
 class Read_Post extends Connection {
   protected $post;
 
   function get_all_post() {
-    $prepare = $this->mysqli->prepare( "select * from post orderby postDate");
+    // $queryGetAll = "SELECT * FROM post ORDER BY postDate";
+    $prepare = $this->mysqli->prepare("SELECT * FROM post ORDER BY postDate");
 
     $prepare->execute();
     $result = $prepare->get_result();

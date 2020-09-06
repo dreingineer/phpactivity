@@ -13,7 +13,7 @@
     include("utils/read-controller.php");
     $read = new Read_Post();
     $read->get_all_post();
-    $postDB = $read->get_resul();
+    $postDB = $read->get_result();
   ?>
   <div class="post_all">
     <?php 
